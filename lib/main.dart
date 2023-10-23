@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Smartcado',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 33, 125, 36)),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade800),
         useMaterial3: true,
       ),
       home: const LoginScreen(),

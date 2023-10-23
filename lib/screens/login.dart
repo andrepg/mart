@@ -17,8 +17,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Form(
+    return Scaffold(body: _getFormLayoutInfo());
+  }
+
+  Form _getFormLayoutInfo() => Form(
         key: _globalKey,
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -30,6 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.all(24.0),
                 child: Icon(
                   Icons.shopping_cart_outlined,
+                  color: Theme.of(context).primaryColor,
                   size: const Size.fromHeight(100).height,
                 ),
               ),
@@ -70,9 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ],
           ),
         ),
-      ),
-    );
-  }
+      );
 
   /// Returns icon used as template to illustrate our show/hide
   /// password toggle button - the one besides password input
