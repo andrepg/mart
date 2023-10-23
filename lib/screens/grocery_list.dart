@@ -15,7 +15,12 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
         appBar: _buildAppBar(),
         floatingActionButton: _buildFloatingActionButton(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        body: Container(),
+        body: ListView.builder(
+          itemCount: 3,
+          itemBuilder: (context, index) => const ListTile(
+            title: Text("List Title"),
+          ),
+        ),
       ),
     );
   }
