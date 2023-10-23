@@ -1,3 +1,13 @@
+### Multiplatform support
+# For now we're disabling multiplatform support, by hidding all
+# source code from git. Local-side we're developing on Linux, 
+# so a simple build should be enough.
+linux/
+macos/
+web/
+windows/
+test/
+
 # Built application files
 *.apk
 *.aar
