@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:smartcado/screens/login.dart';
+import 'package:smartcado/screens/grocery_list.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:smartcado/firebase_options.dart';
 
-void main() {
-  runApp(const MyApp());
+
+void main() async {
+  runApp(const SmartGroceries());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class SmartGroceries extends StatelessWidget {
+  const SmartGroceries({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Smartcado',
+      title: 'Mart!',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade800),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo.shade900),
         useMaterial3: true,
       ),
-      home: const LoginScreen(),
+      home: const GroceryListScreen(),
     );
   }
 }
