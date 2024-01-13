@@ -12,7 +12,6 @@ class GroceryListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const Icon(Icons.shopping_basket_outlined),
       title: Text(groceryList.title),
       onTap: () {}, // TODO Include View GroceryList here
       onLongPress: () {}, // TODO Include contextual menu here
