@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:smartcado/objects/grocery_list.dart';
+import 'package:smartcado/widgets/grocery_list_item.dart';
+import 'package:smartcado/widgets/mart_appbar.dart';
+import 'package:smartcado/widgets/scroll_to_refresh.dart';
 
 class GroceryListScreen extends StatefulWidget {
   const GroceryListScreen({super.key});
@@ -8,17 +12,31 @@ class GroceryListScreen extends StatefulWidget {
 }
 
 class _GroceryListScreenState extends State<GroceryListScreen> {
+  List<GroceryList> groceries = List.from([
+    GroceryList(title: "Grocery list 1"),
+    GroceryList(title: "Grocery list 2"),
+    GroceryList(title: "Grocery list 3"),
+    GroceryList(title: "Grocery list 4"),
+    GroceryList(title: "Grocery list 5"),
+    GroceryList(title: "Grocery list 6"),
+    GroceryList(title: "Grocery list 7"),
+    GroceryList(title: "Grocery list 8"),
+    GroceryList(title: "Grocery list 9"),
+  ]);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: _buildAppBar(),
+        appBar: MartAppBar(appBar: AppBar()),
         floatingActionButton: _buildFloatingActionButton(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        body: ListView.builder(
-          itemCount: 3,
-          itemBuilder: (context, index) => const ListTile(
-            title: Text("List Title"),
+        body: ScrollToRefresh(
+          refreshFunction: Future.value(true),
+          child: ListView.builder(
+            itemCount: groceries.length,
+            itemBuilder: (context, index) =>
+                GroceryListTile(groceryList: groceries.elementAt(index)),
           ),
         ),
       ),
@@ -31,21 +49,5 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
         tooltip: "Add new grocery list",
         onPressed: () {},
         child: const Icon(Icons.add_shopping_cart),
-      );
-
-  AppBar _buildAppBar() => AppBar(
-        title: const Text("Mart!"),
-        centerTitle: true,
-        leading: Icon(
-          Icons.shopping_cart,
-          color: Theme.of(context).primaryColor,
-          size: 36,
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {},
-          ),
-        ],
       );
 }

@@ -1,15 +1,30 @@
-import 'package:flutter/material.dart';
-import 'package:smartcado/screens/grocery_list.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:smartcado/firebase_options.dart';
+import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:smartcado/libraries/db_handler.dart';
+import 'package:smartcado/screens/grocery_list.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 void main() async {
-  runApp(const SmartGroceries());
+  runApp(SmartGroceries());
 }
 
 class SmartGroceries extends StatelessWidget {
-  const SmartGroceries({super.key});
+  SmartGroceries({super.key}) {
+    _setupSqliteDatabase();
+  }
+
+  _setupSqliteDatabase() {
+    WidgetsFlutterBinding.ensureInitialized();
+    _setupSqliteForWindowsAndLinux();
+    DatabaseHandler().setupDatabase();
+  }
+
+  void _setupSqliteForWindowsAndLinux() {
+    if (Platform.isWindows || Platform.isLinux) {
+      sqfliteFfiInit();
+    }
+  }
 
   // This widget is the root of your application.
   @override
@@ -24,4 +39,3 @@ class SmartGroceries extends StatelessWidget {
     );
   }
 }
-
