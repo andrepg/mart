@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smartcado/objects/grocery_list.dart';
+import 'package:smartcado/screens/grocery_list_new.dart';
 import 'package:smartcado/widgets/grocery_list_item.dart';
 import 'package:smartcado/widgets/mart_appbar.dart';
 import 'package:smartcado/widgets/scroll_to_refresh.dart';
@@ -44,10 +45,14 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
   }
 
   FloatingActionButton _buildFloatingActionButton() => FloatingActionButton(
-        key: const Key("mainFloatingButton"),
+        key: UniqueKey(),
+        heroTag: "MainFloatingActionButton",
         enableFeedback: true,
         tooltip: "Add new grocery list",
-        onPressed: () {},
+        onPressed: () => _pushNewGroceryListScreen(),
         child: const Icon(Icons.add_shopping_cart),
       );
+
+  Future<dynamic> _pushNewGroceryListScreen() => Navigator.push(context,
+      MaterialPageRoute(builder: (context) => const NewGroceryListScreen()));
 }
