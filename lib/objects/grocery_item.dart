@@ -1,4 +1,6 @@
-class GroceryItem {
+import 'package:smartcado/objects/model.dart';
+
+class GroceryItem implements Model {
   String name;
   double quantity;
   double price;
@@ -10,4 +12,10 @@ class GroceryItem {
     required this.price,
     this.onCart = false,
   });
+
+  @override
+  Map<String, dynamic> toMap() {
+    // TODO: implement toMap
+    throw UnimplementedError();
+  }
 }
