@@ -96,3 +96,6 @@ lint/tmp/
 # IDE and plugins personal settigns
 .lh/
 .dart_tool/
+/.flutter-plugins*
+.vscode
+.idea
