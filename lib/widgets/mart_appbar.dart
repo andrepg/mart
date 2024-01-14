@@ -11,7 +11,7 @@ class MartAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text("Mart!", style: Theme.of(context).textTheme.headlineMedium),
       centerTitle: true,
       leading: Icon(
-        Icons.shopping_cart,
+        Icons.shopping_bag_outlined,
         color: Theme.of(context).primaryColor,
         size: 36,
       ),
