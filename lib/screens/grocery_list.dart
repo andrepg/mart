@@ -1,7 +1,10 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:smartcado/objects/grocery_list.dart';
+import 'package:smartcado/screens/grocery_list_item.dart';
 import 'package:smartcado/screens/grocery_list_new.dart';
-import 'package:smartcado/widgets/grocery_list_item.dart';
+import 'package:smartcado/widgets/animated_container_wrapper.dart';
+import 'package:smartcado/widgets/grocery_list_tile.dart';
 import 'package:smartcado/widgets/mart_appbar.dart';
 import 'package:smartcado/widgets/safe_area_with_list.dart';
 
@@ -23,14 +26,29 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
     GroceryList(title: "Grocery list 7"),
     GroceryList(title: "Grocery list 8"),
     GroceryList(title: "Grocery list 9"),
+    GroceryList(title: "Grocery list 10"),
+    GroceryList(title: "Grocery list 11"),
+    GroceryList(title: "Grocery list 12"),
+    GroceryList(title: "Grocery list 13"),
+    GroceryList(title: "Grocery list 14"),
+    GroceryList(title: "Grocery list 15"),
+    GroceryList(title: "Grocery list 16"),
+    GroceryList(title: "Grocery list 17"),
   ]);
+
+  final ContainerTransitionType _transitionType = ContainerTransitionType.fade;
 
   @override
   Widget build(BuildContext context) => SafeAreaWithList(
         screenAppBar: MartAppBar(appBar: AppBar()),
         listContent: groceries,
-        tileBuilder: (context, index) =>
-            GroceryListTile(groceryList: groceries[index]),
+        tileBuilder: (context, index) => AnimatedContainerWrapper(
+          openBuilder: const GroceryItemListScreen(),
+          closedBuilder: (context, action) =>
+              GroceryListTile(groceryList: groceries[index]),
+          transitionType: _transitionType,
+          onClosed: (data) {},
+        ),
         floatingActionButton: _buildFloatingActionButton(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       );
