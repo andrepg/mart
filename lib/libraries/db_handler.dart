@@ -11,11 +11,19 @@ class DatabaseHandler {
   /// Returns a connection to our database, allowing CRUD operations and
   /// data manipulation. Here we're using
   setupDatabase() async => openDatabase(
-        join(await getDatabasesPath(), dbName),
+        await _getDatabasePath(),
         onCreate: _manageCreation,
         onUpgrade: _manageUpgrade,
         version: dbVersion,
       );
+
+  getDatabase() async => openDatabase(
+        await _getDatabasePath(),
+        version: dbVersion,
+      );
+
+  Future<String> _getDatabasePath() async =>
+      join(await getDatabasesPath(), dbName);
 
   /// Manage database creation when app it's running from first time
   /// We'll create all databases based on [DatabaseSchema] class and

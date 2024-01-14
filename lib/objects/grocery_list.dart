@@ -34,5 +34,5 @@ class GroceryList implements Model {
 
   Future<int> store() async =>
       GroceryListProvider(await DatabaseHandler().getDatabase())
-          .saveSingleResource(this);
+          .saveSingleResource(toMap());
 }
