@@ -3,7 +3,7 @@ import 'package:smartcado/objects/grocery_list.dart';
 import 'package:smartcado/screens/grocery_list_new.dart';
 import 'package:smartcado/widgets/grocery_list_item.dart';
 import 'package:smartcado/widgets/mart_appbar.dart';
-import 'package:smartcado/widgets/scroll_to_refresh.dart';
+import 'package:smartcado/widgets/safe_area_with_list.dart';
 
 class GroceryListScreen extends StatefulWidget {
   const GroceryListScreen({super.key});
@@ -26,23 +26,14 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
   ]);
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: MartAppBar(appBar: AppBar()),
+  Widget build(BuildContext context) => SafeAreaWithList(
+        screenAppBar: MartAppBar(appBar: AppBar()),
+        listContent: groceries,
+        tileBuilder: (context, index) =>
+            GroceryListTile(groceryList: groceries[index]),
         floatingActionButton: _buildFloatingActionButton(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        body: ScrollToRefresh(
-          refreshFunction: Future.value(true),
-          child: ListView.builder(
-            itemCount: groceries.length,
-            itemBuilder: (context, index) =>
-                GroceryListTile(groceryList: groceries.elementAt(index)),
-          ),
-        ),
-      ),
-    );
-  }
+      );
 
   FloatingActionButton _buildFloatingActionButton() => FloatingActionButton(
         key: UniqueKey(),
@@ -50,7 +41,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
         enableFeedback: true,
         tooltip: "Add new grocery list",
         onPressed: () => _pushNewGroceryListScreen(),
-        child: const Icon(Icons.add_shopping_cart),
+        child: const Icon(Icons.add_shopping_cart_outlined),
       );
 
   Future<dynamic> _pushNewGroceryListScreen() => Navigator.push(context,
