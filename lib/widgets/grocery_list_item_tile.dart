@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:smartcado/objects/grocery_item.dart';
-import 'package:smartcado/screens/grocery_list_item.dart';
 
 class GroceryListItemTile extends StatefulWidget {
   final GroceryItem groceryItem;

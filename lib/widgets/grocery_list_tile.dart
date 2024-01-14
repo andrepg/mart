@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:smartcado/objects/grocery_list.dart';
-import 'package:smartcado/screens/grocery_list_item.dart';
 
 class GroceryListTile extends StatelessWidget {
   final GroceryList groceryList;

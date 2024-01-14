@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smartcado/objects/grocery_item.dart';
 import 'package:smartcado/widgets/grocery_list_item_tile.dart';
-import 'package:smartcado/widgets/mart_appbar.dart';
 import 'package:smartcado/widgets/safe_area_with_list.dart';
 
 class GroceryItemListScreen extends StatefulWidget {

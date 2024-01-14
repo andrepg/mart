@@ -1,7 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:smartcado/screens/grocery_list_item.dart';
 
 class AnimatedContainerWrapper extends StatelessWidget {
   const AnimatedContainerWrapper({
