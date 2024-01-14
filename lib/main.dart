@@ -22,6 +22,7 @@ class SmartGroceries extends StatelessWidget {
 
   void _setupSqliteForWindowsAndLinux() {
     if (Platform.isWindows || Platform.isLinux) {
+      databaseFactory = databaseFactoryFfi;
       sqfliteFfiInit();
     }
   }
