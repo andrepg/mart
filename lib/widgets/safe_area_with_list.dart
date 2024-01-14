@@ -8,15 +8,16 @@ class SafeAreaWithList extends StatelessWidget {
   final List<dynamic> listContent;
   final NullableIndexedWidgetBuilder tileBuilder;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
+  final Widget? bottomSheet;
 
-  const SafeAreaWithList({
-    super.key,
-    required this.listContent,
-    required this.tileBuilder,
-    this.screenAppBar,
-    this.floatingActionButton,
-    this.floatingActionButtonLocation,
-  });
+  const SafeAreaWithList(
+      {super.key,
+      required this.listContent,
+      required this.tileBuilder,
+      this.screenAppBar,
+      this.floatingActionButton,
+      this.floatingActionButtonLocation,
+      this.bottomSheet});
 
   @override
   Widget build(BuildContext context) => SafeArea(
@@ -31,6 +32,7 @@ class SafeAreaWithList extends StatelessWidget {
               itemBuilder: tileBuilder,
             ),
           ),
+          bottomSheet: bottomSheet,
         ),
       );
 }

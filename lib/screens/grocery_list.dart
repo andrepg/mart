@@ -43,7 +43,9 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
         screenAppBar: MartAppBar(appBar: AppBar()),
         listContent: groceries,
         tileBuilder: (context, index) => AnimatedContainerWrapper(
-          openBuilder: const GroceryItemListScreen(),
+          openBuilder: GroceryItemListScreen(
+            groceryList: groceries.elementAt(index),
+          ),
           closedBuilder: (context, action) =>
               GroceryListTile(groceryList: groceries[index]),
           transitionType: _transitionType,

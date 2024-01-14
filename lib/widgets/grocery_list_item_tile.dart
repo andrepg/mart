@@ -23,7 +23,16 @@ class _GroceryListItemTileState extends State<GroceryListItemTile> {
     return ListTile(
       title: Text(widget.groceryItem.name),
       onLongPress: widget.onLongPress,
-      subtitle: Text(widget.groceryItem.quantity.toString()),
+      isThreeLine: true,
+      subtitle: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Qtd. ${widget.groceryItem.quantity} | "
+              "Prc. ${widget.groceryItem.price}"),
+          Text("Total ${_getTotalPriceItem()}")
+        ],
+      ),
       trailing: _buildTrailingButton(),
     );
   }
@@ -41,4 +50,7 @@ class _GroceryListItemTileState extends State<GroceryListItemTile> {
   IconData _getCurrentIcon() => widget.groceryItem.onCart
       ? Icons.shopping_cart_rounded
       : Icons.add_shopping_cart_rounded;
+
+  _getTotalPriceItem() =>
+      (widget.groceryItem.price * widget.groceryItem.quantity);
 }
