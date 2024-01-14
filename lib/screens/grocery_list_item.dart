@@ -31,8 +31,14 @@ class _GroceryItemListScreenState extends State<GroceryItemListScreen> {
         screenAppBar: _buildScreenAppBar(),
         listContent: groceryItems,
         tileBuilder: buildListTile,
-        floatingActionButton: null,
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          tooltip: "Add new product to list",
+          key: UniqueKey(),
+          heroTag: "AddNewItemToGroceryListButton",
+          child: const Icon(Icons.add_rounded),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomSheet: _buildBottomSheet(),
       );
 
@@ -56,13 +62,8 @@ class _GroceryItemListScreenState extends State<GroceryItemListScreen> {
             child: Row(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.calculate_outlined),
-                  tooltip: "Recalculate grocery list",
-                ),
                 Text(_calculateTotalList().toString(),
                     style: Theme.of(context).textTheme.headlineMedium),
               ],
