@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:smartcado/libraries/db_handler.dart';
+import 'package:smartcado/libraries/providers/grocery_list_provider.dart';
 import 'package:smartcado/objects/model.dart';
 import 'package:smartcado/schemas/grocery_list_schema.dart';
 
@@ -29,4 +31,8 @@ class GroceryList implements Model {
         GroceryListSchema.title.name: title,
         GroceryListSchema.archived.name: archived ? 1 : 0,
       };
+
+  Future<int> store() async =>
+      GroceryListProvider(await DatabaseHandler().getDatabase())
+          .saveSingleResource(this);
 }
