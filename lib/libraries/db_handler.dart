@@ -10,15 +10,15 @@ class DatabaseHandler {
 
   /// Returns a connection to our database, allowing CRUD operations and
   /// data manipulation. Here we're using
-  setupDatabase() async => openDatabase(
-        await _getDatabasePath(),
+  setupDatabase({String? path}) async => openDatabase(
+        path ?? await _getDatabasePath(),
         onCreate: _manageCreation,
         onUpgrade: _manageUpgrade,
         version: dbVersion,
       );
 
-  getDatabase() async => openDatabase(
-        await _getDatabasePath(),
+  getDatabase({String? path}) async => openDatabase(
+        path ?? await _getDatabasePath(),
         version: dbVersion,
       );
 

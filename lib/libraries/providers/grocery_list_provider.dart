@@ -1,19 +1,35 @@
 import 'package:smartcado/libraries/persistence_interface.dart';
+import 'package:smartcado/objects/grocery_list.dart';
 import 'package:smartcado/schemas/grocery_list_schema.dart';
 import 'package:sqflite/sqflite.dart';
 
 class GroceryListProvider implements Persistence {
-  final Database _databaseInstance;
   final String _table = "grocery_lists";
+  late Database _databaseInstance;
 
   @override
-  loadCollectionResource(List<int> ids) {
-    // TODO: implement loadCollectionResource
-    throw UnimplementedError();
+  Future loadCollectionResource(List<int>? ids) {
+    var whereStatement = "";
+    var whereArgument = [];
+    if (ids != null) {
+      whereStatement = "${GroceryListSchema.id.name} IN (?)";
+      whereArgument = [ids.join(",").toString()];
+    }
+
+    return _databaseInstance.query(
+      _table,
+      columns: [
+        GroceryListSchema.id.name,
+        GroceryListSchema.title.name,
+        GroceryListSchema.archived.name,
+      ],
+      where: whereStatement,
+      whereArgs: whereArgument,
+    );
   }
 
   @override
-  loadSingleResource(String groceryId) {
+  Future loadSingleResource(String groceryId) {
     return _databaseInstance.query(_table,
         columns: [
           GroceryListSchema.id.name,
@@ -29,9 +45,20 @@ class GroceryListProvider implements Persistence {
   }
 
   @override
-  saveCollectionResource(List<Object> groceryList) {
-    // TODO: implement saveCollectionResource
-    throw UnimplementedError();
+  Future saveCollectionResource(List listOfGroceryList) {
+    if (listOfGroceryList.isEmpty) {
+      return Future.value(false);
+    }
+
+    return _databaseInstance.transaction((transactionObject) async {
+      for (GroceryList groceryList in listOfGroceryList) {
+        transactionObject.insert(
+          _table,
+          groceryList.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+    });
   }
 
   @override
@@ -40,5 +67,10 @@ class GroceryListProvider implements Persistence {
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
-  GroceryListProvider(this._databaseInstance);
+  GroceryListProvider._privateConstructor();
+
+  initialize(Database db) => _databaseInstance = db;
+
+  static final GroceryListProvider instance =
+      GroceryListProvider._privateConstructor();
 }
