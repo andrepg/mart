@@ -6,7 +6,6 @@ linux/
 macos/
 web/
 windows/
-test/
 
 # Built application files
 *.apk
