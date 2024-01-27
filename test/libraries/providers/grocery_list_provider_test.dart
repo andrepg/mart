@@ -53,11 +53,28 @@ void main() async {
   });
 
   group('test grocery list get', () {
-    test('test get single list', () {});
+    test('single list', () async {
+      await db.insert("grocery_lists", GroceryList(title: "Fruits").toMap());
 
-    test('test get collection list', () {});
+      var groceryList =
+          await GroceryListProvider.instance.loadSingleResource('1');
+      expect(groceryList[0]['id'], isNotNull);
+      expect(groceryList[0]['title'], equals("Fruits"));
+    });
 
-    test('test get filtered collection list', () {});
+    test('collection list', () async {
+      var table = "grocery_lists";
+      await db.insert(table, GroceryList(title: "Fruits").toMap());
+      await db.insert(table, GroceryList(title: "Vegetables").toMap());
+      await db.insert(table, GroceryList(title: "Appliances").toMap());
+
+      var listOfGroceries =
+          await GroceryListProvider.instance.loadCollectionResource(null);
+
+      expect(listOfGroceries, hasLength(3));
+    });
+
+    test('filtered collection list', () {});
   });
 
   tearDown(() => db.close());
