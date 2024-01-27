@@ -7,15 +7,16 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 final class SqliteInitialization {
   static initializeSqliteDatabase() {
     WidgetsFlutterBinding.ensureInitialized();
-    setupSqliteForWindowsAndLinux();
+    SqliteInitialization.setupSqliteForWindowsAndLinux();
+
     DatabaseHandler().setupDatabase();
   }
 
   static setupSqliteForWindowsAndLinux() {
     if (Platform.isWindows || Platform.isLinux) {
       databaseFactory = null;
-      sqfliteFfiInit();
       databaseFactory = databaseFactoryFfi;
+      sqfliteFfiInit();
     }
   }
 }

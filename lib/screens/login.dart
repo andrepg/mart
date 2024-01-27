@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartcado/screens/grocery_list_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -66,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(50),
                 ),
-                onPressed: null,
+                onPressed: _pushGroceryListScreen,
                 icon: const Icon(Icons.login),
                 label: const Text("Login"),
               ),
@@ -84,4 +85,10 @@ class _LoginScreenState extends State<LoginScreen> {
   /// Set password visibility when invoked on TogglePasswordVisibilityButton
   void _togglePasswordVisibility() =>
       setState(() => isPasswordHidden = !isPasswordHidden);
+
+  _pushGroceryListScreen() => Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const GroceryListScreen(),
+      ));
 }

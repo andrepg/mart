@@ -3,14 +3,10 @@ import 'package:smartcado/objects/grocery_item.dart';
 
 class GroceryListItemTile extends StatefulWidget {
   final GroceryItem groceryItem;
-  final onTap;
-  final onLongPress;
 
   const GroceryListItemTile({
     super.key,
     required this.groceryItem,
-    this.onTap,
-    this.onLongPress,
   });
 
   @override
@@ -22,7 +18,6 @@ class _GroceryListItemTileState extends State<GroceryListItemTile> {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(widget.groceryItem.name),
-      onLongPress: widget.onLongPress,
       isThreeLine: true,
       subtitle: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -41,7 +36,6 @@ class _GroceryListItemTileState extends State<GroceryListItemTile> {
     return IconButton(
       icon: Icon(_getCurrentIcon()),
       onPressed: () {
-        // TODO Here we'll implement some type of call to repository@store()
         setState(() => widget.groceryItem.onCart = !widget.groceryItem.onCart);
       },
     );

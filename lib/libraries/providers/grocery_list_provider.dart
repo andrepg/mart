@@ -9,23 +9,22 @@ class GroceryListProvider implements Persistence {
 
   @override
   Future loadCollectionResource(List<int>? ids) {
-    var whereStatement = "";
-    var whereArgument = [];
     if (ids != null) {
-      whereStatement = "${GroceryListSchema.id.name} IN (?)";
-      whereArgument = [ids.join(",").toString()];
+      return _databaseInstance.query(_table,
+          columns: [
+            GroceryListSchema.id.name,
+            GroceryListSchema.title.name,
+            GroceryListSchema.archived.name,
+          ],
+          where: "${GroceryListSchema.id.name} IN (?)",
+          whereArgs: [ids.join(",").toString()]);
     }
 
-    return _databaseInstance.query(
-      _table,
-      columns: [
-        GroceryListSchema.id.name,
-        GroceryListSchema.title.name,
-        GroceryListSchema.archived.name,
-      ],
-      where: whereStatement,
-      whereArgs: whereArgument,
-    );
+    return _databaseInstance.query(_table, columns: [
+      GroceryListSchema.id.name,
+      GroceryListSchema.title.name,
+      GroceryListSchema.archived.name,
+    ]);
   }
 
   @override
