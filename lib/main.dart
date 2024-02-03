@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smartcado/libraries/sqlite_init.dart';
+import 'package:smartcado/database/sqlite_init.dart';
 import 'package:smartcado/screens/login.dart';
 
 void main() {

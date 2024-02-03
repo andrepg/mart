@@ -1,14 +1,14 @@
-import 'package:smartcado/libraries/persistence_interface.dart';
+import 'package:smartcado/database/grocery_list_schema.dart';
 import 'package:smartcado/objects/grocery_list.dart';
-import 'package:smartcado/schemas/grocery_list_schema.dart';
+import 'package:smartcado/persistence/persistence_interface.dart';
 import 'package:sqflite/sqflite.dart';
 
-class GroceryListProvider implements Persistence {
+class GroceryListPersistence implements Persistence {
   final String _table = "grocery_lists";
   late Database _databaseInstance;
 
   @override
-  Future loadCollectionResource(List<int>? ids) {
+  Future loadCollection(List<int>? ids) {
     if (ids != null) {
       return _databaseInstance.query(_table,
           columns: [
@@ -28,7 +28,7 @@ class GroceryListProvider implements Persistence {
   }
 
   @override
-  Future loadSingleResource(String groceryId) {
+  Future loadSingle(String groceryId) {
     return _databaseInstance.query(_table,
         columns: [
           GroceryListSchema.id.name,
@@ -44,7 +44,7 @@ class GroceryListProvider implements Persistence {
   }
 
   @override
-  Future saveCollectionResource(List listOfGroceryList) {
+  Future saveCollection(List listOfGroceryList) {
     if (listOfGroceryList.isEmpty) {
       return Future.value(false);
     }
@@ -61,15 +61,15 @@ class GroceryListProvider implements Persistence {
   }
 
   @override
-  Future<int> saveSingleResource(Map<String, Object?> grocery) async {
+  Future<int> saveSingle(Map<String, Object?> grocery) async {
     return _databaseInstance.insert(_table, grocery,
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
-  GroceryListProvider._privateConstructor();
+  GroceryListPersistence._privateConstructor();
 
   initialize(Database db) => _databaseInstance = db;
 
-  static final GroceryListProvider instance =
-      GroceryListProvider._privateConstructor();
+  static final GroceryListPersistence instance =
+      GroceryListPersistence._privateConstructor();
 }

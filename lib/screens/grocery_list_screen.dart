@@ -8,20 +8,14 @@ class GroceryListScreen extends StatefulWidget {
 }
 
 class _GroceryListScreenState extends State<GroceryListScreen> {
-  List groceryLists = List.empty();
+  late List groceryLists;
 
   @override
   void initState() {
     super.initState();
 
-    // _fetchAllGroceryLists();
-  }
 
-  // _fetchAllGroceryLists() async {
-  //   GroceryListProvider provider = GroceryListProvider.instance;
-  //   provider.initialize(await DatabaseHandler().getDatabase());
-  //   provider.loadCollectionResource(null).then((value) => print(value));
-  // }
+  }
 
   @override
   Widget build(BuildContext context) {

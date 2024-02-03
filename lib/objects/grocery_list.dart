@@ -1,37 +1,33 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:smartcado/database/grocery_list_schema.dart';
 import 'package:smartcado/objects/model.dart';
-import 'package:smartcado/schemas/grocery_list_schema.dart';
-
-import 'grocery_item.dart';
 
 class GroceryList implements Model {
   int? id;
-  String uuid = UniqueKey().toString();
+  String? uuid;
   String title;
   bool archived = false;
 
-  List<GroceryItem> items = List.empty(growable: true);
+  GroceryList({
+    required this.title,
+    this.id,
+    this.uuid,
+    this.archived = false,
+  });
 
-  GroceryList({required this.title});
+  factory GroceryList.fromMap(Map<String, dynamic> map) => GroceryList(
+      id: map[GroceryListSchema.id.name],
+      title: map[GroceryListSchema.title.name],
+      uuid: map[GroceryListSchema.uuid.name],
+      archived: map[GroceryListSchema.archived.name] == 1);
 
-  factory GroceryList.fromMap(Map<String, dynamic> map) {
-    var groceryList = GroceryList(title: map['title']);
-
-    groceryList.id = map['id'];
-    groceryList.uuid = map['uuid'] ?? UniqueKey().toString();
-    groceryList.archived = map['archived'] == 1;
-
-    return groceryList;
-  }
-
-  changeArchivedState() => archived = !archived;
+  toggleArchivedState() => archived = !archived;
 
   @override
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap() => Map.from({
         GroceryListSchema.id.name: id,
-        GroceryListSchema.uuid.name: uuid,
+        GroceryListSchema.uuid.name: uuid ?? UniqueKey().toString(),
         GroceryListSchema.title.name: title,
-        GroceryListSchema.archived.name: archived ? 1 : 0,
-      };
+        GroceryListSchema.archived.name: archived ? 1 : 0
+      });
 }

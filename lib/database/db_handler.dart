@@ -1,5 +1,5 @@
 import 'package:path/path.dart';
-import 'package:smartcado/schemas/database_schema.dart';
+import 'package:smartcado/database/database_schema.dart';
 import 'package:sqflite/sqflite.dart';
 
 /// DatabaseHandler it's a class to handle all database requests and
