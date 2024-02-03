@@ -1,8 +1,9 @@
-import './libraries/providers/grocery_list_provider_test.dart'
-    as provider_grocery_list;
-import "./models/grocery_list_test.dart" as model_grocery_list;
+import "./models/grocery_list_test.dart" as grocery_list_model;
+import './providers/grocery_list_persistence_test.dart' as grocery_list_provider;
+import './services/grocery_service_test.dart' as grocery_list_service;
 
 void main() async {
-  model_grocery_list.main();
-  provider_grocery_list.main();
+  grocery_list_model.main();
+  grocery_list_provider.main();
+  grocery_list_service.main();
 }
