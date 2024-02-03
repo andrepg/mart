@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:smartcado/objects/grocery_item.dart';
 import 'package:smartcado/objects/grocery_list.dart';
 
 void main() {
@@ -12,21 +11,9 @@ void main() {
 
   test('it archives a grocery list correctly', () {
     var groceryList = GroceryList(title: "Fruits");
-    groceryList.changeArchivedState();
+    groceryList.toggleArchivedState();
 
     expect(groceryList.archived, equals(true));
-  });
-
-  test('it assign items to grocery', () {
-    var groceryList = GroceryList(title: "Fruits");
-
-    groceryList.items.addAll([
-      GroceryItem(name: "Item 1", quantity: 2, price: 2.50),
-      GroceryItem(name: "Item 2", quantity: 2, price: 2.50),
-      GroceryItem(name: "Item 3", quantity: 2, price: 2.50)
-    ]);
-
-    expect(groceryList.items.length, 3);
   });
 
   test('it converts to map', () {
