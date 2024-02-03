@@ -1,19 +1,19 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:smartcado/libraries/db_handler.dart';
-import 'package:smartcado/libraries/providers/grocery_list_provider.dart';
-import 'package:smartcado/libraries/sqlite_init.dart';
 import 'package:smartcado/objects/grocery_list.dart';
+import 'package:smartcado/database/db_handler.dart';
+import 'package:smartcado/database/sqlite_init.dart';
+import 'package:smartcado/persistence/grocery_list_persistence.dart';
 import 'package:sqflite/sqflite.dart';
 
 void main() async {
   late Database db;
-  late GroceryListProvider provider;
+  late GroceryListPersistence provider;
 
   setUp(() async {
     SqliteInitialization.initializeSqliteDatabase();
     DatabaseHandler().setupDatabase(path: inMemoryDatabasePath);
     db = await DatabaseHandler().getDatabase(path: inMemoryDatabasePath);
-    provider = GroceryListProvider.instance;
+    provider = GroceryListPersistence.instance;
     provider.initialize(db);
   });
 
@@ -21,8 +21,8 @@ void main() async {
     test('single list', () async {
       var groceryList = GroceryList(title: "Fruits");
 
-      await GroceryListProvider.instance
-          .saveSingleResource(groceryList.toMap());
+      await GroceryListPersistence.instance
+          .saveSingle(groceryList.toMap());
 
       var result = await db.query("grocery_lists");
       expect(result.first, containsPair("title", "Fruits"));
@@ -36,7 +36,7 @@ void main() async {
         GroceryList(title: "Appliances"),
       ];
 
-      await GroceryListProvider.instance.saveCollectionResource(groceries);
+      await GroceryListPersistence.instance.saveCollection(groceries);
 
       final listsFromDb = await db.query("grocery_lists");
       final titleMatcher = isIn(["Fruits", "Vegetables", "Appliances"]);
@@ -57,7 +57,7 @@ void main() async {
       await db.insert("grocery_lists", GroceryList(title: "Fruits").toMap());
 
       var groceryList =
-          await GroceryListProvider.instance.loadSingleResource('1');
+          await GroceryListPersistence.instance.loadSingle('1');
       expect(groceryList[0]['id'], isNotNull);
       expect(groceryList[0]['title'], equals("Fruits"));
     });
@@ -69,7 +69,7 @@ void main() async {
       await db.insert(table, GroceryList(title: "Appliances").toMap());
 
       var listOfGroceries =
-          await GroceryListProvider.instance.loadCollectionResource(null);
+          await GroceryListPersistence.instance.loadCollection(null);
 
       expect(listOfGroceries, hasLength(3));
     });
