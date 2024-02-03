@@ -20,6 +20,7 @@ class GroceryListPersistence implements Persistence {
           whereArgs: [ids.join(",").toString()]);
     }
 
+
     return _databaseInstance.query(_table, columns: [
       GroceryListSchema.id.name,
       GroceryListSchema.title.name,
@@ -51,11 +52,8 @@ class GroceryListPersistence implements Persistence {
 
     return _databaseInstance.transaction((transactionObject) async {
       for (GroceryList groceryList in listOfGroceryList) {
-        transactionObject.insert(
-          _table,
-          groceryList.toMap(),
-          conflictAlgorithm: ConflictAlgorithm.replace,
-        );
+        transactionObject.insert(_table, groceryList.toMap(),
+            conflictAlgorithm: ConflictAlgorithm.replace);
       }
     });
   }

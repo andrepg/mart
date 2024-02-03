@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smartcado/database/sqlite_init.dart';
-import 'package:smartcado/screens/login.dart';
+import 'package:smartcado/screens/grocery_list_screen.dart';
 
 void main() {
   runApp(SmartGroceries());
@@ -16,7 +16,7 @@ class SmartGroceries extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Mart!',
-      home: LoginScreen(),
+      home: GroceryListScreen(),
     );
   }
 }
