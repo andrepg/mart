@@ -1,0 +1,56 @@
+{
+  "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
+  "name": "Flutter",
+  "dockerFile": "./Dockerfile",
+  "containerUser": "vscode",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind,z",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "postCreateCommand": "flutter doctor",
+  "postAttachCommand": "flutter pub outdated",
+  "containerEnv": {
+    "BUILDAH_FORMAT": "docker"
+  },
+  "portsAttributes": {
+    "5037": {
+      "label": "Android ADB Bridge",
+      "onAutoForward": "silent"
+    },
+    "5555-5585": {
+      "label": "Android ADB Emulators",
+      "onAutoForward": "silent"
+    }
+  },
+  "runArgs": [
+    "-e XDG_RUNTIME_DIR=/tmp",
+    "-e WAYLAND_DISPLAY=${localEnv:WAYLAND_DISPLAY}"
+  ],
+  "mounts": [
+    {
+      "source": "${localEnv:XDG_RUNTIME_DIR}/${localEnv:WAYLAND_DISPLAY}",
+      "target": "/tmp/${localEnv:WAYLAND_DISPLAY}",
+      "type": "bind"
+    }
+  ],
+  "build": {
+    "args": {
+      "android_sdk": "./cmdlinetools.zip",
+      "flutter_sdk": "./fluttersdk.tar.xz"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Dart-Code.flutter",
+        "alexisvt.flutter-snippets",
+        "davidwoo.flutter-auto-import",
+        "circlecodesolution.ccs-flutter-color",
+        "Dart-Code.dart-code",
+        "jeroen-meijer.pubspec-assist",
+        "everettjf.pubspec-dependency-search",
+        "Kaiqun.build-runner",
+        "aziznal.dart-import-sorter",
+        "FelixAngelov.bloc"
+      ]
+    }
+  }
+}
